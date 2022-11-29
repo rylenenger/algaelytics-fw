@@ -6,10 +6,17 @@
  * Date started: September 22th, 2022
  *
  * Description:
- *    This device will function as
+ *  This device will function as an internet-connected hub
+ *  that collects data from sensors and sends the data
+ *  over the LTE-M network to a secure HTTPS endpoint.
  *
  * Equipment:
- *   -
+ *  - ESP32 Huzzah
+ *  - Blues Wireless Notecarrier AF with Global Notecard
+ *  - AM2302 Temperature and humidity sensor
+ *  - DS1820B waterproof water temperature sensor
+ *  - DFRobot Gravity Analog TDS sensor
+ * 
  ***********************************************************/
 
 // LIB DEPS
@@ -33,9 +40,9 @@
 #define SCOUNT 50 // TDS - sum of sample point
 
 // DEEPSLEEP SETUP
-#define mS_TO_S_FACTOR 1000 // DEEPSLEEP -
-#define uS_TO_S_FACTOR 1000000LL // DEEPSLEEP - conversion factor for micro seconds to seconds
-#define TIME_TO_SLEEP 60 * 60 // DEEPSLEEP - time ESP32 will go to sleep (in seconds) */
+#define mS_TO_S_FACTOR 1000         // DEEPSLEEP - conversion factor for ms to seconds
+#define uS_TO_S_FACTOR 1000000LL    // DEEPSLEEP - conversion factor for us to seconds
+#define TIME_TO_SLEEP 60 * 60       // DEEPSLEEP - time ESP32 will go to sleep (in seconds) */
 
 // FUNCTION PROTOTYPES
 void configureHub();
@@ -87,6 +94,9 @@ void loop()
 {
     // Reading temperature or humidity takes about 250 milliseconds!
     // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+
+    // should read battery voltage too....!!!
+    
     float h = dht.readHumidity();
     float ta = dht.readTemperature();
     sensors.requestTemperatures();
